@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products List</title>
+</head>
+<body>
+<div class="container">
+    <h1>Товары в репозитрии</h1>
+    <div class="container">
+        <table border th:if="${allProducts.size() > 0}" class="table">
+            <thead>
+            <tr>
+                <td>Id</td>
+                <td>Товар</td>
+                <td>цена</td>
+                <td>Действия</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr align="center" th:each="p : ${allProducts}">
+                <td width="10%" th:text="${p.id}"></td>
+                <td width="20%" th:text="${p.title}"></td>
+                <td width="20%" th:text="${p.cost + ' руб.'}"></td>
+                <td>
+                    <form method="GET" th:action="@{'/delete_prod/'} + ${p.id}">
+                        <button type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>Добавить товар</h2>
+        <form method="GET" th:action="@{'/add_prod'}">
+            <input type="number" name="product_id">
+            <input type="text" name="name">
+            <input type="number" name="cost">
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
